@@ -24,10 +24,10 @@ application:
         - /*
       do:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
-
 services:
   harness:
     # harness/harness:3.3.0
+    # upstream: docker.io/harness/harness:3.3.0
     image: docker.1ms.run/harness/harness:3.3.0
     environment:
       - GITNESS_HTTP_HOST=0.0.0.0

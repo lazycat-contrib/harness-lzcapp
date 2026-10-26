@@ -1,0 +1,38 @@
+application:
+  subdomain: harness
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://harness:3000/
+  injects:
+    # The principal admin credentials are filled in for the user.
+    - id: login-autofill
+      when:
+        - /login
+        - /admin/login
+      do:
+        - src: builtin://simple-inject-password
+          params:
+            user: "{{ .U.admin_email }}"
+            password: "{{ .U.admin_password }}"
+    # Repository import and file uploads use native file pickers, which the
+    # store requires to route through the LazyCat cloud drive.
+    - id: open-save-chooser
+      on: browser
+      when:
+        - /*
+      do:
+        - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
+
+services:
+  harness:
+    # harness/harness:3.3.0
+    image: docker.1ms.run/harness/harness:3.3.0
+    environment:
+      - GITNESS_HTTP_HOST=0.0.0.0
+      - GITNESS_PRINCIPAL_ADMIN_EMAIL={{ .U.admin_email }}
+      - GITNESS_PRINCIPAL_ADMIN_PASSWORD={{ .U.admin_password }}
+      - GITNESS_GITSPACE_ENABLE=true
+    binds:
+      - /lzcapp/var/data:/data

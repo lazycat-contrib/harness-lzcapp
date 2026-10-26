@@ -1,0 +1,22 @@
+package: community.lazycat.app.harness
+version: 3.3.0
+name: Harness
+description: Open-source developer platform with code hosting, CI/CD pipelines, hosted development environments and artifact registries
+min_os_version: 1.5.0
+homepage: https://github.com/harness/harness
+author: harness
+license: Apache-2.0
+locales:
+  zh:
+    name: Harness
+    description: 开源开发者平台，内置代码托管、CI/CD 流水线、托管开发环境与制品仓库
+  zh_CN:
+    name: Harness
+    description: 开源开发者平台，内置代码托管、CI/CD 流水线、托管开发环境与制品仓库
+  en:
+    name: Harness
+    description: Open-source developer platform with code hosting, CI/CD pipelines, hosted development environments and artifact registries
+unsupported_platforms:
+  - ios
+  - android
+  - tvos

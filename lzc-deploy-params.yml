@@ -1,0 +1,22 @@
+params:
+  - id: admin_email
+    type: string
+    name: "Admin Email"
+    description: "Email for the principal administrator account"
+    default_value: "admin@lazycat.local"
+    optional: false
+  - id: admin_password
+    type: secret
+    name: "Admin Password"
+    description: "password for the principal administrator account"
+    default_value: "$random(len=20)"
+    optional: false
+
+locales:
+  zh:
+    admin_email:
+      name: "管理员邮箱"
+      description: "主体管理员账号的邮箱"
+    admin_password:
+      name: "管理员密码"
+      description: "主体管理员账号的密码，部署时自动生成"

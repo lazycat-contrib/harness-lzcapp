@@ -1,0 +1,46 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/harness.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: harness
+
+build:
+  toolchains: []
+  run_buildscript: false
+
+images:
+  - id: harness
+    target: service
+    service: harness
+    source: docker.io/harness/harness
+    channel: stable
+    sort: semver
+    # Strict three-part release tags only; excludes latest, unstable and
+    # test-unstable builds.
+    tag_regex: ^[0-9]+[.][0-9]+[.][0-9]+$
+    delivery:
+      mode: mirror
+      image_template: "docker.1ms.run/harness/harness:{tag}"
+      require_digest_match: true
+
+stores:
+  official:
+    enabled: false
+    skip_if_version_exists: false
+    retry:
+      enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Harness
+    summary: 镜像加速模式自动跟上游 Docker Hub 版本发布的开源开发者平台

@@ -1,0 +1,11 @@
+manifest: ./lzc-manifest.yml
+pkgout: ./.lazycat-build
+icon: ./icon.png
+contentdir: ./content
+compose_override:
+  services:
+    harness:
+      # Harness runs pipelines inside Docker containers and needs the host
+      # daemon socket to do so.
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
